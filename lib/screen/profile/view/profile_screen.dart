@@ -1,3 +1,4 @@
+import 'package:firebaseecom/screen/home/modal/home_modal.dart';
 import 'package:firebaseecom/utils/firebase_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -67,23 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                      }
                    else if(snapshot.hasData)
                      {
-                       cnum="";
-                       upiid="";
-                       i=0;
-                       uipi=0;
                        var user = snapshot.data!.docs;
-                       i=user[0]['cnum'].toString().length;
-                       uipi=user[0]['upiid'].toString().length;
-                       userkey = user[0].id;
-                       for(int j=0;j<i-4;j++)
-                         {
-                           cnum="${cnum}*";
-                         }
-                       print(uipi);
-                       for(int k=0;k<uipi-4;k++)
-                         {
-                           upiid="${upiid}*";
-                         }
                        return Column(
                          crossAxisAlignment: CrossAxisAlignment.start,
                          children: [
@@ -93,122 +78,91 @@ class _ProfileScreenState extends State<ProfileScreen> {
                            SizedBox(height: 5.h,),
                            (user[0]['Add']=="")?Container():Text("${user[0]["Add"]} , ${user[0]["City"]}, ${user[0]["State"]} - ${user[0]["Zip"]}",style: TextStyle(fontSize: 18.sp,color: Colors.white)),
                            SizedBox(height: 5.h,),
-                           Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                           Column(
+                             crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
-                               Text("Debit/Credit/ATM Cards",style: TextStyle(fontSize: 18.sp,color: Colors.white),),
-                               InkWell(onTap: () {
-                                 txtcnum = TextEditingController(text: user[0]['cnum']);
-                                 txtcname = TextEditingController(text: user[0]['cname']);
-                                 txtupiid = TextEditingController(text: user[0]['upiid']);
-                                 showDialog(context: context, builder: (context) => AlertDialog(backgroundColor: Color(0xff13171C),content: Column(
-                                   mainAxisSize: MainAxisSize.min,
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     Text('Update your cards',style: TextStyle(color: Colors.white,fontSize: 20.sp,fontWeight: FontWeight.w600)),
-                                     SizedBox(
-                                       height: 1.h,
+                               Text(
+                                 "History",
+                                 style: TextStyle(
+                                     color: Colors.white,
+                                     fontWeight: FontWeight.bold,
+                                     fontSize: 30.sp),
+                               ),
+                               SizedBox(
+                                 height: 1.h,
+                               ),
+                               StreamBuilder(
+                                 builder: (context, snapshot) {
+                                   if (snapshot.hasData) {
+                                     var data = snapshot.data!.docs;
+                                     List<ProductModal> productlist = [];
+                                     for (var x in data) {
+                                       ProductModal order = ProductModal(
+                                         Name: x['Name'],
+                                         Price: x['Price'],
+                                         Dis: x['Dis'],
+                                         Brand: x['Brand'],
+                                         con: x["Con"],
+                                         cat: x["Cat"],
+                                         img: x["Img"],
+                                       );
+                                       productlist.add(order);
+                                     }
+                                     return Container(
+                                       height: 43.h,
+                                       child: ListView.builder(
+                                         physics: BouncingScrollPhysics(),
+                                         itemCount: productlist.length,
+                                         itemBuilder: (context, index) => Container(
+                                           padding: EdgeInsets.all(7),
+                                           decoration: BoxDecoration(
+                                               color: Colors.white10,
+                                               borderRadius: BorderRadius.circular(15)),
+                                           margin:
+                                           EdgeInsets.symmetric(vertical: 5),
+                                           child: Row(
+                                             children: [
+                                               Container(
+                                                 width: 7.h,
+                                                 height: 7.h,
+                                                 margin: EdgeInsets.only(right: 8),
+                                                 decoration: BoxDecoration(
+                                                     color: Colors.white10,
+                                                     borderRadius: BorderRadius.circular(15),
+                                                     image: DecorationImage(
+                                                         image: NetworkImage(productlist[index]
+                                                             .img ==
+                                                             ""
+                                                             ? 'https://dwglogo.com/wp-content/uploads/2016/02/Amazoncom-yellow-arrow.png'
+                                                             : "${productlist[index].img}"))),
+                                               ),
+                                               Column(
+                                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                                 children: [
+                                                   Text("${productlist[index].Name}",
+                                                       style: TextStyle(color: Colors.white)),
+                                                   Text("Qua : ${productlist[index].con}",
+                                                       style: TextStyle(color: Colors.white)),
+                                                   Text("Rs. ${productlist[index].Price}",
+                                                       style: TextStyle(color: Colors.white)),
+                                                 ],
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                       ),
+                                     );
+                                   }
+                                   return Center(
+                                     child: CircularProgressIndicator(
+                                       color: Colors.white,
                                      ),
-                                     TextField(
-                                       keyboardType: TextInputType.number,
-                                       controller: txtcnum,
-                                       style: TextStyle(color: Colors.white),
-                                       decoration: InputDecoration(label: Text("Card number", style: TextStyle(color: Colors.white70)), enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)), focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white))),
-                                     ),
-                                     SizedBox(
-                                       height: 1.5.h,
-                                     ),
-                                     TextField(
-                                       controller: txtcname,
-                                       style: TextStyle(color: Colors.white),
-                                       decoration: InputDecoration(label: Text("Name on card", style: TextStyle(color: Colors.white70)), enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)), focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white))),
-                                     ),
-                                     SizedBox(
-                                       height: 1.h,
-                                     ),
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                       children: [
-                                         ElevatedButton(onPressed: () {
-                                           Get.back();
-                                         }, child: Text("Cancel"),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff13171C))),),
-                                         ElevatedButton(onPressed: () {
-                                           FireBase.fireBase.UserUData(key: userkey,Name: user[0]['Name'],Zip: user[0]['Zip'],State: user[0]['State'],City: user[0]['City'],Add: user[0]['Add'],cnum: txtcnum.text,cname: txtcname.text,upiid: txtupiid.text);
-                                           Get.back();
-                                         }, child: Text("Save"),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff13171C))),),
-
-                                       ],
-                                     )
-                                   ],
-                                 )),);
-                               },child: Text("Update",style: TextStyle(fontSize: 18.sp,color: Colors.white),)),
+                                   );
+                                 },
+                                 stream: FireBase.fireBase.readbuy(),
+                               ),
                              ],
                            ),
-                           SizedBox(height: 1.h,),
-                           (user[0]['cnum']=="")?Container():Container(
-                             height: 18.h,
-                             width: 100.w,
-                             decoration: BoxDecoration(
-                                 color: Colors.white10,
-                                 border: Border.all(color: Colors.white),
-                                 borderRadius: BorderRadius.circular(15)
-                             ),
-                             padding: EdgeInsets.all(15),
-                             alignment: Alignment.bottomCenter,
-                             child: Column(
-                               mainAxisSize: MainAxisSize.min,
-                               children: [
-                                 Text("${cnum}${user[0]['cnum'].toString().substring(i-4,i)}",style: TextStyle(color: Colors.white,fontSize: 16.sp)),
-                                 SizedBox(height: 4.h,),
-                                 Align(alignment: Alignment.centerLeft,child: Text("${user[0]['cname']}",style: TextStyle(color: Colors.white,fontSize: 16.sp))),
-                               ],
-                             ),
-                           ),
-                           SizedBox(height: 5.h,),
-                           Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                             children: [
-                               Text("Upi id",style: TextStyle(fontSize: 18.sp,color: Colors.white),),
-                               InkWell(onTap: () {
-                                 txtcnum = TextEditingController(text: user[0]['cnum']);
-                                 txtcname = TextEditingController(text: user[0]['cname']);
-                                 txtupiid = TextEditingController(text: user[0]['upiid']);
-                                 showDialog(context: context, builder: (context) => AlertDialog(backgroundColor: Color(0xff13171C),content: Column(
-                                   mainAxisSize: MainAxisSize.min,
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     Text('Upi id',style: TextStyle(color: Colors.white,fontSize: 20.sp,fontWeight: FontWeight.w600)),
-                                     SizedBox(
-                                       height: 1.h,
-                                     ),
-                                     TextField(
-                                       controller: txtupiid,
-                                       style: TextStyle(color: Colors.white),
-                                       decoration: InputDecoration(label: Text("Upi id", style: TextStyle(color: Colors.white70)), enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)), focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white))),
-                                     ),
-                                     SizedBox(
-                                       height: 1.h,
-                                     ),
-                                     Row(
-                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                       children: [
-                                         ElevatedButton(onPressed: () {
-                                           Get.back();
-                                         }, child: Text("Cancel"),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff13171C))),),
-                                         ElevatedButton(onPressed: () {
-                                           FireBase.fireBase.UserUData(key: userkey,Name: user[0]['Name'],Zip: user[0]['Zip'],State: user[0]['State'],City: user[0]['City'],Add: user[0]['Add'],cnum: txtcnum.text,cname: txtcname.text,upiid: txtupiid.text);
-                                           Get.back();
-                                         }, child: Text("Save"),style: ButtonStyle(backgroundColor: MaterialStatePropertyAll(Color(0xff13171C))),),
-
-                                       ],
-                                     )
-                                   ],
-                                 )),);
-                               },child: Text("Update",style: TextStyle(fontSize: 18.sp,color: Colors.white),)),
-                             ],
-                           ),
-                           SizedBox(height: 1.h,),
-                           (user[0]['upiid']=="")?Container():Text("${upiid}${user[0]['upiid'].toString().substring(uipi-4,uipi)}",style: TextStyle(color: Colors.white,fontSize: 16.sp)),
                          ],
                        );
                      }

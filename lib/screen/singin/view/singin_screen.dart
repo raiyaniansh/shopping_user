@@ -96,7 +96,7 @@ class _SingInscreenState extends State<SingInscreen> {
                           if(msg=="success")
                           {
                             Get.offAndToNamed('/bottom');
-                            FireBase.fireBase.UserData(Zip: "",State: "",City: "",Add: "",Name: "");
+                            Get.offAndToNamed('/user');
                           }
                         },
                         child: Container(height: 7.h,width: 7.h,padding: EdgeInsets.all(5),decoration: BoxDecoration(color: Colors.white24,shape: BoxShape.circle),alignment: Alignment.center,child: Image.network('https://clipartcraft.com/images/transparent-background-google-logo-white-8.png')),

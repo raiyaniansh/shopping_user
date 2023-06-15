@@ -49,6 +49,11 @@ class FireBase {
     return db.collection('cart').doc('$user').collection("cart").snapshots();
   }
 
+  Stream<QuerySnapshot<Map<String, dynamic>>> readbuy() {
+    String? user = firebaseAuth.currentUser!.uid;
+    return db.collection('buy').doc('$user').collection("product").snapshots();
+  }
+
   Future<String?> Update(
       {String? Name, Brand, Price, Dis, Day, stock, img, cat, key,rat}) async {
     String? msg;
@@ -67,13 +72,12 @@ class FireBase {
   }
 
   Future<String?> Orderitem(
-      {String? Name, Brand, Price, Dis, Day, stock, img, cat, key, con,Pay}) async {
+      {String? Name, Brand, Price, Dis, Day, stock, img, cat, key, con}) async {
     String? msg;
     String? user = firebaseAuth.currentUser!.uid;
     String? email = firebaseAuth.currentUser!.email;
     await db.collection("order").add({
       "Name": "$Name",
-      "Pay": "$Pay",
       "Con": "$con",
       "Brand": "$Brand",
       "Price": "$Price",
@@ -106,6 +110,22 @@ class FireBase {
     return msg;
   }
 
+  Future<String?> Historyd(
+      {String? Name, Brand, Price, Dis, img, cat, con}) async {
+    String? msg;
+    String? user = firebaseAuth.currentUser!.uid;
+    await db.collection("buy").doc('$user').collection('product').add({
+      "Name": "$Name",
+      "Con": "$con",
+      "Brand": "$Brand",
+      "Price": "$Price",
+      "Dis": "$Dis",
+      "Cat": "$cat",
+      "Img": "$img",
+    }).then((value) => msg = "Success");
+    return msg;
+  }
+
   void delet(id) {
     String? user = firebaseAuth.currentUser!.uid;
     db.collection("cart").doc('$user').collection("cart").doc('$id').delete();
@@ -122,9 +142,6 @@ class FireBase {
       "City": "$City",
       "State": "$State",
       "Zip": "$Zip",
-      "cnum":"",
-      "cname":"",
-      "upiid":"",
     }).then((value) => msg = "Success");
     return msg;
   }

@@ -93,7 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       child: Column(
                                         children: [
-                                          SizedBox(height: 1.h,),
+                                          SizedBox(
+                                            height: 1.h,
+                                          ),
                                           Stack(
                                             children: [
                                               Align(
@@ -104,36 +106,68 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                            BorderRadius.circular(15),
+                                                            BorderRadius
+                                                                .circular(15),
                                                         image: DecorationImage(
-                                                            image: NetworkImage(productlist[
-                                                                            index]
-                                                                        .img ==
-                                                                    ""
-                                                                ? 'https://dwglogo.com/wp-content/uploads/2016/02/Amazoncom-yellow-arrow.png'
-                                                                : "${productlist[index].img}")))),
+                                                            image: NetworkImage(
+                                                                productlist[index]
+                                                                            .img ==
+                                                                        ""
+                                                                    ? 'https://dwglogo.com/wp-content/uploads/2016/02/Amazoncom-yellow-arrow.png'
+                                                                    : "${productlist[index].img}"),),),),
                                               ),
-                                              (productlist[index].Stock=="0")?Align(
-                                                alignment: Alignment(0, 0),
-                                                child: Container(
-                                                    height: 22.h,
-                                                    width: 40.w,
-                                                    decoration: BoxDecoration(
-                                                        color: Colors.white24,
-                                                        borderRadius:
-                                                            BorderRadius.circular(15),
+                                              (productlist[index].Stock == "0")
+                                                  ? Align(
+                                                      alignment:
+                                                          Alignment(0, 0),
+                                                      child: Container(
+                                                        height: 22.h,
+                                                        width: 40.w,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white24,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
                                                         ),
-                                                  alignment: Alignment.center,
-                                                  child: Transform.rotate(angle: -pi/4,child: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      Container(height: 0.3.h,width: 38.w,color: Colors.red,),
-                                                      Text("Out of Stock",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 25.sp,color: Colors.red),),
-                                                      Container(height: 0.3.h,width: 38.w,color: Colors.red,),
-                                                    ],
-                                                  )),
-                                                ),
-                                              ):Container(),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Transform.rotate(
+                                                          angle: -pi / 4,
+                                                          child: Column(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Container(
+                                                                height: 0.3.h,
+                                                                width: 38.w,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                              Text(
+                                                                "Out of Stock",
+                                                                style: TextStyle(
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .w600,
+                                                                    fontSize:
+                                                                        25.sp,
+                                                                    color: Colors
+                                                                        .red),
+                                                              ),
+                                                              Container(
+                                                                height: 0.3.h,
+                                                                width: 38.w,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    )
+                                                  : Container(),
                                             ],
                                           ),
                                           SizedBox(
@@ -230,7 +264,9 @@ class _HomeScreenState extends State<HomeScreen> {
                                       ),
                                       child: Column(
                                         children: [
-                                          SizedBox(height: 1.h,),
+                                          SizedBox(
+                                            height: 1.h,
+                                          ),
                                           Stack(
                                             children: [
                                               Align(
@@ -241,36 +277,67 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     decoration: BoxDecoration(
                                                         color: Colors.white,
                                                         borderRadius:
-                                                        BorderRadius.circular(15),
+                                                            BorderRadius
+                                                                .circular(15),
                                                         image: DecorationImage(
-                                                            image: NetworkImage(productlist[
-                                                            index]
-                                                                .img ==
-                                                                ""
-                                                                ? 'https://dwglogo.com/wp-content/uploads/2016/02/Amazoncom-yellow-arrow.png'
-                                                                : "${productlist[index].img}")))),
+                                                            image: NetworkImage(
+                                                                productlist[index]
+                                                                            .img ==
+                                                                        ""
+                                                                    ? 'https://dwglogo.com/wp-content/uploads/2016/02/Amazoncom-yellow-arrow.png'
+                                                                    : "${productlist[index].img}")))),
                                               ),
-                                              (productlist[index].Stock=="0")?Align(
-                                                alignment: Alignment(0, 0),
-                                                child: Container(
-                                                  height: 22.h,
-                                                  width: 40.w,
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.white24,
-                                                    borderRadius:
-                                                    BorderRadius.circular(15),
-                                                  ),
-                                                  alignment: Alignment.center,
-                                                  child: Transform.rotate(angle: -pi/4,child: Column(
-                                                    mainAxisSize: MainAxisSize.min,
-                                                    children: [
-                                                      Container(height: 0.3.h,width: 38.w,color: Colors.red,),
-                                                      Text("Out of Stock",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 25.sp,color: Colors.red),),
-                                                      Container(height: 0.3.h,width: 38.w,color: Colors.red,),
-                                                    ],
-                                                  )),
-                                                ),
-                                              ):Container(),
+                                              (productlist[index].Stock == "0")
+                                                  ? Align(
+                                                      alignment:
+                                                          Alignment(0, 0),
+                                                      child: Container(
+                                                        height: 22.h,
+                                                        width: 40.w,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors.white24,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(15),
+                                                        ),
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Transform.rotate(
+                                                            angle: -pi / 4,
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .min,
+                                                              children: [
+                                                                Container(
+                                                                  height: 0.3.h,
+                                                                  width: 38.w,
+                                                                  color: Colors
+                                                                      .red,
+                                                                ),
+                                                                Text(
+                                                                  "Out of Stock",
+                                                                  style: TextStyle(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w600,
+                                                                      fontSize:
+                                                                          25.sp,
+                                                                      color: Colors
+                                                                          .red),
+                                                                ),
+                                                                Container(
+                                                                  height: 0.3.h,
+                                                                  width: 38.w,
+                                                                  color: Colors
+                                                                      .red,
+                                                                ),
+                                                              ],
+                                                            ), ),
+                                                      ),
+                                                    )
+                                                  : Container(),
                                             ],
                                           ),
                                           SizedBox(
@@ -355,47 +422,89 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                             child: Column(
                                               children: [
-                                                SizedBox(height: 1.h,),
+                                                SizedBox(
+                                                  height: 1.h,
+                                                ),
                                                 Stack(
                                                   children: [
                                                     Align(
-                                                      alignment: Alignment(0, 0),
+                                                      alignment:
+                                                          Alignment(0, 0),
                                                       child: Container(
                                                           height: 22.h,
                                                           width: 40.w,
                                                           decoration: BoxDecoration(
-                                                              color: Colors.white,
+                                                              color:
+                                                                  Colors.white,
                                                               borderRadius:
-                                                              BorderRadius.circular(15),
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15),
                                                               image: DecorationImage(
-                                                                  image: NetworkImage(productlist[
-                                                                  index]
-                                                                      .img ==
-                                                                      ""
-                                                                      ? 'https://dwglogo.com/wp-content/uploads/2016/02/Amazoncom-yellow-arrow.png'
-                                                                      : "${productlist[index].img}")))),
+                                                                  image: NetworkImage(
+                                                                      productlist[index].img ==
+                                                                              ""
+                                                                          ? 'https://dwglogo.com/wp-content/uploads/2016/02/Amazoncom-yellow-arrow.png'
+                                                                          : "${productlist[index].img}")))),
                                                     ),
-                                                    (productlist[index].Stock=="0")?Align(
-                                                      alignment: Alignment(0, 0),
-                                                      child: Container(
-                                                        height: 22.h,
-                                                        width: 40.w,
-                                                        decoration: BoxDecoration(
-                                                          color: Colors.white24,
-                                                          borderRadius:
-                                                          BorderRadius.circular(15),
-                                                        ),
-                                                        alignment: Alignment.center,
-                                                        child: Transform.rotate(angle: -pi/4,child: Column(
-                                                          mainAxisSize: MainAxisSize.min,
-                                                          children: [
-                                                            Container(height: 0.3.h,width: 38.w,color: Colors.red,),
-                                                            Text("Out of Stock",style: TextStyle(fontWeight: FontWeight.w600,fontSize: 25.sp,color: Colors.red),),
-                                                            Container(height: 0.3.h,width: 38.w,color: Colors.red,),
-                                                          ],
-                                                        )),
-                                                      ),
-                                                    ):Container(),
+                                                    (productlist[index].Stock ==
+                                                            "0")
+                                                        ? Align(
+                                                            alignment:
+                                                                Alignment(0, 0),
+                                                            child: Container(
+                                                              height: 22.h,
+                                                              width: 40.w,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Colors
+                                                                    .white24,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            15),
+                                                              ),
+                                                              alignment:
+                                                                  Alignment
+                                                                      .center,
+                                                              child: Transform
+                                                                  .rotate(
+                                                                      angle:
+                                                                          -pi /
+                                                                              4,
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.min,
+                                                                        children: [
+                                                                          Container(
+                                                                            height:
+                                                                                0.3.h,
+                                                                            width:
+                                                                                38.w,
+                                                                            color:
+                                                                                Colors.red,
+                                                                          ),
+                                                                          Text(
+                                                                            "Out of Stock",
+                                                                            style: TextStyle(
+                                                                                fontWeight: FontWeight.w600,
+                                                                                fontSize: 25.sp,
+                                                                                color: Colors.red),
+                                                                          ),
+                                                                          Container(
+                                                                            height:
+                                                                                0.3.h,
+                                                                            width:
+                                                                                38.w,
+                                                                            color:
+                                                                                Colors.red,
+                                                                          ),
+                                                                        ],
+                                                                      )),
+                                                            ),
+                                                          )
+                                                        : Container(),
                                                   ],
                                                 ),
                                                 SizedBox(
@@ -417,17 +526,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                                   height: 0.5.h,
                                                 ),
                                                 Container(
-                                                    width: 35.w,
-                                                    child: Text(
-                                                      '${productlist[index].Name}',
-                                                      style: TextStyle(
-                                                          color: Colors.white70,
-                                                          fontSize: 15.sp,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                          overflow: TextOverflow
-                                                              .ellipsis),
-                                                    )),
+                                                  width: 35.w,
+                                                  child: Text(
+                                                    '${productlist[index].Name}',
+                                                    style: TextStyle(
+                                                        color: Colors.white70,
+                                                        fontSize: 15.sp,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                        overflow: TextOverflow
+                                                            .ellipsis),
+                                                  ),
+                                                ),
                                                 Expanded(child: SizedBox()),
                                               ],
                                             ),
@@ -442,9 +552,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     );
                   }
                   return Center(
-                      child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ));
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  );
                 },
               ),
               Align(

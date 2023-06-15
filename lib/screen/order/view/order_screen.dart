@@ -3,6 +3,7 @@ import 'package:firebaseecom/utils/firebase_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class OrderScreen extends StatefulWidget {
   const OrderScreen({Key? key}) : super(key: key);
@@ -18,6 +19,8 @@ class _OrderScreenState extends State<OrderScreen> {
   TextEditingController txtcname = TextEditingController();
   TextEditingController txtupiid = TextEditingController();
   var user;
+  ProductModal product = ProductModal();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -53,17 +56,6 @@ class _OrderScreenState extends State<OrderScreen> {
                     }
                     return Column(
                       children: [
-                        StreamBuilder(builder: (context, snapshot) {
-                          if(snapshot.hasData)
-                          {
-                            user = snapshot.data!.docs;
-                            userkey=user[0].id;
-                            txtcnum = TextEditingController(text :user[0]['cnum']);
-                            txtcname = TextEditingController(text :user[0]['cname']);
-                            txtupiid = TextEditingController(text :user[0]['upiid']);
-                          }
-                          return Container();
-                        },stream: FireBase.fireBase.Readuser()),
                         SizedBox(
                           height: 6.h,
                         ),
@@ -148,324 +140,49 @@ class _OrderScreenState extends State<OrderScreen> {
                                                   MaterialStatePropertyAll(
                                                       Color(0xff242C32)))),
                                       ElevatedButton(
-                                          onPressed: () async {
-                                            showModalBottomSheet(
-                                                isDismissible: true,
-                                                isScrollControlled: true,
-                                                context: context,
-                                                builder: (context) => Container(
-                                                  height: 80.h,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xff13171C),
-                                                        borderRadius:
-                                                            BorderRadius.only(
-                                                          topLeft:
-                                                              Radius.circular(
-                                                                  35),
-                                                          topRight:
-                                                              Radius.circular(
-                                                                  35),
-                                                        ),
-                                                      ),
-                                                      padding: EdgeInsets.only(
-                                                          left: 15,
-                                                          right: 15,
-                                                          top: 20),
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Payment Option",
-                                                            style: TextStyle(
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 25.sp,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w600),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 2.h,
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              pay.value = 0;
-                                                            },
-                                                            child: Obx(
-                                                              () => Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Container(
-                                                                    height:
-                                                                        2.5.h,
-                                                                    // margin: EdgeInsets.only(left: 15),
-                                                                    width:
-                                                                        2.5.h,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      color: pay.value == 0
-                                                                          ? Colors
-                                                                              .blue
-                                                                          : Colors
-                                                                              .transparent,
-                                                                      border: Border.all(
-                                                                          color:
-                                                                              Colors.blue),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 2.w,
-                                                                  ),
-                                                                  Container(
-                                                                    width: 80.w,
-                                                                    child:
-                                                                        Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      children: [
-                                                                        Text(
-                                                                            "Pay with Debit/Credit/ATM Cards",
-                                                                            style:
-                                                                                TextStyle(color: Colors.white, fontSize: 13.sp)),
-                                                                        pay.value ==
-                                                                                0
-                                                                            ? Container(
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.min,
-                                                                                  children: [
-                                                                                    SizedBox(
-                                                                                      height: 1.h,
-                                                                                    ),
-                                                                                    TextField(
-                                                                                      keyboardType: TextInputType.number,
-                                                                                      controller: txtcnum,
-                                                                                      style: TextStyle(color: Colors.white),
-                                                                                      decoration: InputDecoration(label: Text("Card number", style: TextStyle(color: Colors.white70)), enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)), focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white))),
-                                                                                    ),
-                                                                                    SizedBox(
-                                                                                      height: 1.5.h,
-                                                                                    ),
-                                                                                    TextField(
-                                                                                      controller: txtcname,
-                                                                                      style: TextStyle(color: Colors.white),
-                                                                                      decoration: InputDecoration(label: Text("Name on card", style: TextStyle(color: Colors.white70)), enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)), focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white))),
-                                                                                    ),
-                                                                                    SizedBox(
-                                                                                      height: 1.h,
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              )
-                                                                            : Container(),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 1.h,
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              pay.value = 1;
-                                                            },
-                                                            child: Obx(
-                                                              () => Row(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Container(
-                                                                    height:
-                                                                        2.5.h,
-                                                                    // margin: EdgeInsets.only(left: 15),
-                                                                    width:
-                                                                        2.5.h,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      color: pay.value == 1
-                                                                          ? Colors
-                                                                              .blue
-                                                                          : Colors
-                                                                              .transparent,
-                                                                      border: Border.all(
-                                                                          color:
-                                                                              Colors.blue),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 2.w,
-                                                                  ),
-                                                                  Container(
-                                                                    width: 80.w,
-                                                                    child:
-                                                                        Column(
-                                                                      crossAxisAlignment:
-                                                                          CrossAxisAlignment
-                                                                              .start,
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .min,
-                                                                      children: [
-                                                                        Text(
-                                                                            "Other UPI Apps",
-                                                                            style:
-                                                                                TextStyle(color: Colors.white, fontSize: 13.sp)),
-                                                                        pay.value ==
-                                                                                1
-                                                                            ? Container(
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.min,
-                                                                                  children: [
-                                                                                    SizedBox(
-                                                                                      height: 1.h,
-                                                                                    ),
-                                                                                    TextField(
-                                                                                      controller: txtupiid,
-                                                                                      style: TextStyle(color: Colors.white),
-                                                                                      decoration: InputDecoration(label: Text("UPI Id", style: TextStyle(color: Colors.white70)), enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white)), focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white))),
-                                                                                    ),
-                                                                                    SizedBox(
-                                                                                      height: 1.h,
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              )
-                                                                            : Container(),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          SizedBox(
-                                                            height: 1.h,
-                                                          ),
-                                                          InkWell(
-                                                            onTap: () {
-                                                              pay.value = 2;
-                                                            },
-                                                            child: Obx(
-                                                                  () => Row(
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                                children: [
-                                                                  Container(
-                                                                    height:
-                                                                    2.5.h,
-                                                                    // margin: EdgeInsets.only(left: 15),
-                                                                    width:
-                                                                    2.5.h,
-                                                                    decoration:
-                                                                    BoxDecoration(
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      color: pay.value == 2
-                                                                          ? Colors
-                                                                          .blue
-                                                                          : Colors
-                                                                          .transparent,
-                                                                      border: Border.all(
-                                                                          color:
-                                                                          Colors.blue),
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    width: 2.w,
-                                                                  ),
-                                                                  Container(
-                                                                    width: 80.w,
-                                                                    child:
-                                                                    Column(
-                                                                      crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                      mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .min,
-                                                                      children: [
-                                                                        Text(
-                                                                            "Cash on Delivery",
-                                                                            style:
-                                                                            TextStyle(color: Colors.white, fontSize: 13.sp)),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Expanded(child: SizedBox()),
-                                                          Row(
-                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                            children: [
-                                                              Text("Total payment",style: TextStyle(color: Colors.white,fontSize: 18.sp)),
-                                                              Text("Rs. ${(int.parse(productlist[index].Price!)*int.parse(productlist[index].con!))}",style: TextStyle(color: Colors.white,fontSize: 18.sp)),
-                                                            ],
-                                                          ),
-                                                          SizedBox(height: 2.h,),
-                                                          InkWell(onTap: () async {
-                                                            String? payty;
-                                                            if(pay.value==0)
-                                                              {
-                                                                payty="Pay with Debit/Credit/ATM Cards";
-                                                              }
-                                                            else if(pay.value==1)
-                                                              {
-                                                                payty="Other UPI Apps";
-                                                              }
-                                                            else
-                                                              {
-                                                                payty="Cash on Delivery";
-                                                              }
-                                                            if(pay.value==0||pay.value==1||pay.value==2){
-                                                                  await FireBase.fireBase.Orderitem(
-                                                                  Name: productlist[index].Name,
-                                                                      Pay: payty,
-                                                                  key: productlist[index].key,
-                                                                  Price: productlist[index].Price,
-                                                                  Dis: productlist[index].Dis,
-                                                                  Brand: productlist[index].Brand,
-                                                                  cat: productlist[index].cat,
-                                                                  img: productlist[index].img,
-                                                                  Day: productlist[index].rtn,
-                                                                  con: productlist[index].con);
-                                                                  FireBase.fireBase.UserUData(key: userkey,Name: user[0]['Name'],Zip: user[0]['Zip'],State: user[0]['State'],City: user[0]['City'],Add: user[0]['Add'],cnum: txtcnum.text,cname: txtcname.text,upiid: txtupiid.text);
-                                                                  FireBase.fireBase.delet(productlist[index].rid);
-                                                              Get.back();
-                                                              ScaffoldMessenger.of(context)
-                                                                  .showSnackBar(SnackBar(content: Text("Product buy successfully")));
-                                                            }
-                                                          },child: Container(height: 7.h,width: 100.w,decoration: BoxDecoration(color: Colors.white10,border: Border.all(color: Colors.white),borderRadius: BorderRadius.circular(10)),child: Text("Buy Now",style: TextStyle(color: Colors.white,fontSize: 18.sp,fontWeight: FontWeight.w600),),alignment: Alignment.center)),
-                                                          SizedBox(height: 1.h,),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                backgroundColor:
-                                                    Colors.transparent);
-                                          },
-                                          child: Text("BuyNow"),
-                                          style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStatePropertyAll(
-                                                      Color(0xff242C32)))),
+                                        onPressed: () {
+                                          product = ProductModal(
+                                              Name: productlist[index].Name,
+                                              rat: productlist[index].rat,
+                                              Price: productlist[index].Price,
+                                              Dis: productlist[index].Dis,
+                                              Brand: productlist[index].Brand,
+                                              img: productlist[index].img,
+                                              con: productlist[index].con,
+                                              cat: productlist[index].cat,
+                                              Stock: productlist[index].Stock,
+                                              rtn: productlist[index].rtn,
+                                              rid: productlist[index].rid,
+                                              key: productlist[index].key);
+                                          num total = int.parse(
+                                                  productlist[index].Price!) *
+                                              int.parse(
+                                                  productlist[index].con!) *
+                                              100;
+                                          Razorpay razorpay = Razorpay();
+                                          razorpay.on(
+                                              Razorpay.EVENT_PAYMENT_SUCCESS,
+                                              _handlePaymentSuccess);
+                                          razorpay.on(
+                                              Razorpay.EVENT_PAYMENT_ERROR,
+                                              _handlePaymentError);
+                                          razorpay.on(
+                                              Razorpay.EVENT_EXTERNAL_WALLET,
+                                              _handleExternalWallet);
+                                          var options = {
+                                            'key': 'rzp_test_S2mfF9oI5zrbuE',
+                                            'amount': '$total',
+                                          };
+                                          razorpay.open(options);
+                                        },
+                                        child: Text("BuyNow"),
+                                        style: ButtonStyle(
+                                          backgroundColor:
+                                              MaterialStatePropertyAll(
+                                            Color(0xff242C32),
+                                          ),
+                                        ),
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -478,9 +195,10 @@ class _OrderScreenState extends State<OrderScreen> {
                     );
                   }
                   return Center(
-                      child: CircularProgressIndicator(
-                    color: Colors.white,
-                  ));
+                    child: CircularProgressIndicator(
+                      color: Colors.white,
+                    ),
+                  );
                 },
               ),
               Align(
@@ -506,5 +224,19 @@ class _OrderScreenState extends State<OrderScreen> {
         ),
       ),
     );
+  }
+
+  void _handlePaymentSuccess(PaymentSuccessResponse response) {
+    FireBase.fireBase.Orderitem(Name: product.Name,cat: product.cat,con: product.con,img: product.img,Brand: product.Brand,Dis: product.Dis,Price: product.Price,stock: product.Stock,Day: product.rtn,key: product.key);
+    FireBase.fireBase.Historyd(Brand: product.Brand,Price: product.Price,Name: product.Name,Dis: product.Dis,img: product.img,con: product.con,cat: product.cat);
+    FireBase.fireBase.delet(product.rid);
+  }
+
+  void _handlePaymentError(PaymentFailureResponse response) {
+    // Do something when payment fails
+  }
+
+  void _handleExternalWallet(ExternalWalletResponse response) {
+    // Do something when an external wallet was selected
   }
 }
